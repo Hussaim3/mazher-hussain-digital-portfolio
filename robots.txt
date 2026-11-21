@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://emailmarketingbest.github.io/mazherhussainnew-portfolio/sitemap.xml
