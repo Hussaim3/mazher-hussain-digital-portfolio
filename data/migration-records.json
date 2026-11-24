@@ -1,0 +1,211 @@
+{
+  "schemaVersion": "1.0",
+  "source": "synthetic",
+  "confidentiality": "public-demo",
+  "project": "Illustrative SaaS Migration Reconciliation Demo (Synthetic Data)",
+  "datasets": [
+    {
+      "id": "dataset-all-pass",
+      "title": "Dataset A: Standard Patent Records",
+      "description": "High-volume core patent applications with 100% field parity and verified target schema integrity.",
+      "legacyTotal": 14500,
+      "targetTotal": 14500,
+      "passCount": 14500,
+      "failCount": 0,
+      "matchRate": 1.0,
+      "riskLevel": "Low",
+      "records": [
+        {
+          "field": "Record ID",
+          "legacy": "SYNTH-PAT-10829",
+          "target": "SYNTH-PAT-10829",
+          "rule": "Exact string match",
+          "status": "pass",
+          "type": "exact",
+          "impact": "None. Primary key integrity preserved."
+        },
+        {
+          "field": "Filing Date",
+          "legacy": "14/05/2021",
+          "target": "2021-05-14",
+          "rule": "Date transform (DD/MM/YYYY -> ISO-8601)",
+          "status": "pass",
+          "type": "transformed",
+          "impact": "None. Valid timestamp normalization."
+        },
+        {
+          "field": "Statutory Status",
+          "legacy": "REG",
+          "target": "Registered",
+          "rule": "Enum mapping lookup",
+          "status": "pass",
+          "type": "transformed",
+          "impact": "None. Code expanded to human-readable label."
+        },
+        {
+          "field": "Fee Amount (NZD)",
+          "legacy": "450.00",
+          "target": "450.00",
+          "rule": "Decimal numeric precision",
+          "status": "pass",
+          "type": "exact",
+          "impact": "None. Financial ledger balance verified."
+        },
+        {
+          "field": "Applicant Hash",
+          "legacy": "e9c1a40f8b",
+          "target": "e9c1a40f8b",
+          "rule": "SHA-256 integrity checksum",
+          "status": "pass",
+          "type": "exact",
+          "impact": "None. Entity relationship verified."
+        }
+      ],
+      "discrepanciesByCategory": {
+        "Primary Keys": 0,
+        "Date Formats": 0,
+        "Status Enums": 0,
+        "Financial Totals": 0,
+        "Binary Attachments": 0,
+        "Orphaned Records": 0
+      }
+    },
+    {
+      "id": "dataset-transform-pass",
+      "title": "Dataset B: Complex Trademark Filings",
+      "description": "Multi-classification international trademark filings requiring string-to-array transformations and UTC normalization.",
+      "legacyTotal": 8200,
+      "targetTotal": 8200,
+      "passCount": 8200,
+      "failCount": 0,
+      "matchRate": 1.0,
+      "riskLevel": "Low",
+      "records": [
+        {
+          "field": "Record ID",
+          "legacy": "TM-NZ-991204",
+          "target": "TM-NZ-991204",
+          "rule": "Exact string match",
+          "status": "pass",
+          "type": "exact",
+          "impact": "None. Primary key match."
+        },
+        {
+          "field": "Nice Classification",
+          "legacy": "CLASS_09;CLASS_42",
+          "target": "['09', '42']",
+          "rule": "Semicolon string to JSON array",
+          "status": "pass",
+          "type": "transformed",
+          "impact": "None. Valid array deserialization in target SaaS."
+        },
+        {
+          "field": "Renewal Expiry",
+          "legacy": "01/12/2030 00:00:00",
+          "target": "2030-12-01T00:00:00Z",
+          "rule": "Datetime UTC conversion",
+          "status": "pass",
+          "type": "transformed",
+          "impact": "None. Exact UTC offset preserved."
+        },
+        {
+          "field": "Attorney Code",
+          "legacy": "AGT-WLG-04",
+          "target": "AGT-WLG-04",
+          "rule": "Exact match",
+          "status": "pass",
+          "type": "exact",
+          "impact": "None. Direct agent mapping."
+        },
+        {
+          "field": "Paris Convention Priority",
+          "legacy": "Y",
+          "target": "true",
+          "rule": "Char(1) to Boolean mapping",
+          "status": "pass",
+          "type": "transformed",
+          "impact": "None. Valid boolean normalization."
+        }
+      ],
+      "discrepanciesByCategory": {
+        "Primary Keys": 0,
+        "Date Formats": 0,
+        "Status Enums": 0,
+        "Financial Totals": 0,
+        "Binary Attachments": 0
+      }
+    },
+    {
+      "id": "dataset-critical-mismatch",
+      "title": "Dataset C: Legacy Designs Migration",
+      "description": "High-risk legacy dataset containing mapping table omissions, leap-year boundary defects, and orphaned attachments.",
+      "legacyTotal": 3100,
+      "targetTotal": 3088,
+      "passCount": 2920,
+      "failCount": 180,
+      "matchRate": 0.942,
+      "riskLevel": "Critical",
+      "records": [
+        {
+          "field": "Record ID",
+          "legacy": "DSN-2018-0041",
+          "target": "DSN-2018-0041",
+          "rule": "Exact string match",
+          "status": "pass",
+          "type": "exact",
+          "impact": "None."
+        },
+        {
+          "field": "Design Category",
+          "legacy": "CAT-INDUSTRIAL-04",
+          "target": "CAT-UNKNOWN",
+          "rule": "Mapping table lookup",
+          "status": "fail",
+          "type": "mismatch",
+          "expected": "CAT-MANUFACTURING-IND",
+          "actual": "CAT-UNKNOWN",
+          "impact": "Critical: Unmapped design records fall out of public gazette search index."
+        },
+        {
+          "field": "Grant Date",
+          "legacy": "29/02/2020",
+          "target": "2020-02-28",
+          "rule": "Leap year date parser",
+          "status": "fail",
+          "type": "mismatch",
+          "expected": "2020-02-29",
+          "actual": "2020-02-28",
+          "impact": "High: Statutory priority date shifted by 24 hours, risking legal dispute."
+        },
+        {
+          "field": "Owner Tax ID",
+          "legacy": "SYNTH-TAX-DEMO-0001",
+          "target": "SYNTH-TAX-DEMO-0001",
+          "rule": "Exact string match",
+          "status": "pass",
+          "type": "exact",
+          "impact": "None."
+        },
+        {
+          "field": "Drawing Attachments",
+          "legacy": "4 Files",
+          "target": "3 Files",
+          "rule": "Blob count reconciliation",
+          "status": "fail",
+          "type": "mismatch",
+          "expected": "4 Blobs in S3",
+          "actual": "3 Blobs in S3",
+          "impact": "Blocker: 1 technical CAD diagram sheet lost during S3 bucket replication."
+        }
+      ],
+      "discrepanciesByCategory": {
+        "Primary Keys": 12,
+        "Date Formats": 48,
+        "Status Enums": 74,
+        "Financial Totals": 14,
+        "Binary Attachments": 32
+      }
+    }
+  ],
+  "simulatedSQL": "-- PORTFOLIO DEMO EXAMPLE - SANITISED RECONCILIATION METHOD (SYNTHETIC SCHEMA)\n-- Catches: (1) missing target row, (2) missing mapping rule, (3) NULL or mismatched target category, (4) doc_count/checksum drift\nSELECT\n    s.record_id,\n    s.category AS legacy_category,\n    t.category AS target_category,\n    m.target_code AS expected_category,\n    s.doc_count AS legacy_doc_count,\n    t.doc_count AS target_doc_count,\n    CASE\n        WHEN t.record_id IS NULL THEN 'ORPHANED_RECORD'\n        WHEN m.target_code IS NULL THEN 'MISSING_MAPPING_RULE'\n        WHEN t.category IS NULL OR t.category <> m.target_code THEN 'CATEGORY_MISMATCH_OR_NULL'\n        WHEN COALESCE(s.doc_count, -1) <> COALESCE(t.doc_count, -1) THEN 'BLOB_ATTACHMENT_MISMATCH'\n        WHEN COALESCE(s.checksum, '') <> COALESCE(t.checksum, '') THEN 'CHECKSUM_DRIFT'\n        ELSE 'PASS'\n    END AS reconciliation_verdict\nFROM demo_legacy_registry s\nLEFT JOIN demo_saas_target t ON s.record_id = t.record_id\nLEFT JOIN demo_category_mapping m ON s.category = m.legacy_code\nWHERE t.record_id IS NULL\n   OR m.target_code IS NULL\n   OR t.category IS NULL\n   OR t.category <> m.target_code\n   OR COALESCE(s.doc_count, -1) <> COALESCE(t.doc_count, -1)\n   OR COALESCE(s.checksum, '') <> COALESCE(t.checksum, '')\nORDER BY s.record_id ASC;"
+}

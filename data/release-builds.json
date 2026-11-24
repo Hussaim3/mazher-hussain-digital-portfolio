@@ -1,0 +1,200 @@
+{
+  "schemaVersion": "1.0",
+  "source": "synthetic",
+  "confidentiality": "public-demo",
+  "builds": [
+    {
+      "id": "build-1",
+      "name": "Build 1.0 (Alpha Sprint 4 - Core API & Auth)",
+      "date": "2026-09-15",
+      "stage": "Alpha Verification",
+      "execution": 0.7619,
+      "requirementsCoverage": 0.84,
+      "criticalOpen": 2,
+      "highOpen": 5,
+      "mediumOpen": 11,
+      "lowOpen": 14,
+      "regressionComplete": false,
+      "blockedE2E": true,
+      "recommendation": "NO-GO",
+      "badgeClass": "status--fail",
+      "ruleTriggered": "Rule 1 Violation: Critical open defects > 0 (2 Criticals found) and blocked E2E payment journey.",
+      "residualRisk": "Payment token leakage under concurrent multi-user load (DEF-1002); 16% of functional requirements unexecuted.",
+      "gates": [
+        {
+          "name": "Requirements Coverage (>= 98%)",
+          "value": "84%",
+          "status": "fail"
+        },
+        {
+          "name": "Zero Critical Defects",
+          "value": "2 Open",
+          "status": "fail"
+        },
+        {
+          "name": "E2E Gateway Unblocked",
+          "value": "Blocked",
+          "status": "fail"
+        },
+        {
+          "name": "Regression Suite Complete",
+          "value": "Incomplete (42%)",
+          "status": "fail"
+        }
+      ],
+      "chartData": {
+        "labels": [
+          "Passed",
+          "Failed",
+          "Blocked",
+          "Not Run"
+        ],
+        "datasets": [
+          {
+            "data": [
+              142,
+              18,
+              9,
+              41
+            ]
+          }
+        ]
+      },
+      "defectBreakdown": {
+        "Critical": 2,
+        "High": 5,
+        "Medium": 11,
+        "Low": 14
+      }
+    },
+    {
+      "id": "build-2",
+      "name": "Build 2.1 (Release Candidate 1 - Payment & 3DS)",
+      "date": "2026-10-12",
+      "stage": "Release Candidate 1",
+      "execution": 0.952,
+      "requirementsCoverage": 0.97,
+      "criticalOpen": 0,
+      "highOpen": 1,
+      "mediumOpen": 4,
+      "lowOpen": 8,
+      "regressionComplete": true,
+      "blockedE2E": false,
+      "recommendation": "CONDITIONAL GO",
+      "badgeClass": "status--conditional",
+      "ruleTriggered": "Rule 2 Triggered: Zero Criticals, but 1 High defect open and Requirements Coverage is 97% (< 98% target).",
+      "residualRisk": "High defect DEF-3012: Callback retry delay under peak network jitter. Mitigated by operational cron job polling every 10 mins.",
+      "gates": [
+        {
+          "name": "Requirements Coverage (>= 98%)",
+          "value": "97%",
+          "status": "conditional"
+        },
+        {
+          "name": "Zero Critical Defects",
+          "value": "0 Open",
+          "status": "pass"
+        },
+        {
+          "name": "E2E Gateway Unblocked",
+          "value": "Clear",
+          "status": "pass"
+        },
+        {
+          "name": "Suite Execution (>= 95%)",
+          "value": "95.2% (238/250 Executed)",
+          "status": "pass"
+        }
+      ],
+      "chartData": {
+        "labels": [
+          "Passed",
+          "Failed",
+          "Blocked",
+          "Not Run"
+        ],
+        "datasets": [
+          {
+            "data": [
+              234,
+              4,
+              1,
+              11
+            ]
+          }
+        ]
+      },
+      "defectBreakdown": {
+        "Critical": 0,
+        "High": 1,
+        "Medium": 4,
+        "Low": 8
+      },
+      "executionSummary": "95.2% Execution Rate (238 / 250 test cases executed: 234 Passed, 4 Failed; 1 Blocked, 11 Not Run)"
+    },
+    {
+      "id": "build-3",
+      "name": "Build 3.0 (Final Release Candidate - Production Ready)",
+      "date": "2026-11-04",
+      "stage": "Production Sign-Off",
+      "execution": 0.9926,
+      "requirementsCoverage": 0.994,
+      "criticalOpen": 0,
+      "highOpen": 0,
+      "mediumOpen": 1,
+      "lowOpen": 3,
+      "regressionComplete": true,
+      "blockedE2E": false,
+      "recommendation": "GO",
+      "badgeClass": "status--pass",
+      "ruleTriggered": "All Quality Gates Passed: 0 Critical, 0 High, 99.4% Requirements Coverage, 99% Execution, 100% Regression Passed.",
+      "residualRisk": "Low cosmetic text reflow on legacy Android 9 webview (DEF-3098); formally accepted by Product Owner with zero operational impact.",
+      "gates": [
+        {
+          "name": "Requirements Coverage (>= 98%)",
+          "value": "99.4%",
+          "status": "pass"
+        },
+        {
+          "name": "Zero Critical Defects",
+          "value": "0 Open",
+          "status": "pass"
+        },
+        {
+          "name": "E2E Gateway Unblocked",
+          "value": "Clear",
+          "status": "pass"
+        },
+        {
+          "name": "Regression Suite Complete",
+          "value": "100% Passed",
+          "status": "pass"
+        }
+      ],
+      "chartData": {
+        "labels": [
+          "Passed",
+          "Failed",
+          "Blocked",
+          "Not Run"
+        ],
+        "datasets": [
+          {
+            "data": [
+              268,
+              1,
+              0,
+              2
+            ]
+          }
+        ]
+      },
+      "defectBreakdown": {
+        "Critical": 0,
+        "High": 0,
+        "Medium": 1,
+        "Low": 3
+      }
+    }
+  ]
+}

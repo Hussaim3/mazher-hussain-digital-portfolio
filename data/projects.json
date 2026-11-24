@@ -1,0 +1,111 @@
+{
+  "schemaVersion": "1.0",
+  "source": "synthetic",
+  "confidentiality": "public-demo",
+  "projects": [
+    {
+      "id": "nzeta-paynow",
+      "code": "PROJ-01",
+      "title": "NZeTA PayNow & Batch Portal",
+      "subtitle": "Immigration & Border Security Payment Transformation",
+      "client": "MBIE / INZ",
+      "role": "QA Delivery Lead",
+      "teamSize": "Five-person QA team",
+      "builds": "3 delivery builds",
+      "challenge": "Replace legacy payment gateway with modern Windcave multi-currency checkout while guaranteeing zero duplicate transactions across peak border application bursts.",
+      "contribution": "Led 5-person test squad, architected asynchronous callback recovery validation, coordinated external vendor releases, and established Go/No-Go evidence gate.",
+      "outcome": "Three zero-regression releases, 100% financial reconciliation accuracy, and seamless tourist levy / visa fee capture across 60+ countries.",
+      "tags": [
+        "Payment Gateways",
+        "Windcave",
+        "Async Callbacks",
+        "Team Leadership",
+        "Release Gate"
+      ],
+      "labRoute": "/lab/paynow/"
+    },
+    {
+      "id": "iponz-saas",
+      "code": "PROJ-02",
+      "title": "IPONZ SaaS Migration",
+      "subtitle": "Intellectual Property Office Cloud & Database Modernisation",
+      "client": "MBIE / IPONZ",
+      "role": "Data Migration Test Lead",
+      "teamSize": "Cross-functional data engineering & QA stream",
+      "builds": "4 migration iterations",
+      "challenge": "Migrate millions of statutory patent, trademark, and design records from legacy Oracle databases to target SaaS platform without data loss or date drift.",
+      "contribution": "Formulated automated SQL source-to-target reconciliation algorithms, audited transformation rules for leap years and multi-value fields, and verified public registry search parity.",
+      "outcome": "100% target record verification, zero statutory date discrepancies, and executive sign-off for cutover weekend.",
+      "tags": [
+        "Data Migration",
+        "SQL Reconciliation",
+        "Schema Mapping",
+        "ETL Verification",
+        "Data Quality"
+      ],
+      "labRoute": "/lab/migration/"
+    },
+    {
+      "id": "one-nz-mobility",
+      "code": "PROJ-03",
+      "title": "One NZ Enterprise Mobility",
+      "subtitle": "All-of-Government Mission-Critical Telecommunications",
+      "client": "One NZ (Govt Streams: NZDF, Police, MSD, DOC)",
+      "role": "QA Delivery Lead",
+      "teamSize": "Multi-agency test coordination",
+      "builds": "Continuous cutover streams",
+      "challenge": "Ensure uninterrupted voice, secure mobile data, and priority routing across high-security government clients during enterprise network cutovers.",
+      "contribution": "Managed test and cutover risk governance across defence, police, and social development streams; designed failover regression matrices; directed live transition assurance.",
+      "outcome": "Zero mission-critical downtime, verified emergency call failover, and successful formal handover into live service.",
+      "tags": [
+        "Enterprise Cutover",
+        "High Availability",
+        "Government Security",
+        "Risk Governance"
+      ],
+      "labRoute": "/lab/release/"
+    },
+    {
+      "id": "epbr-accessibility",
+      "code": "PROJ-04",
+      "title": "EPBR Digital Accessibility",
+      "subtitle": "Public Sector Regulated Accessibility & Usability Assurance",
+      "client": "Public Sector",
+      "role": "Test Lead",
+      "teamSize": "4 test analysts",
+      "builds": "2 releases",
+      "challenge": "Meet NZ Government Web Accessibility Standard 1.1 and WCAG 2.1 Level AA across complex interactive digital public forms.",
+      "contribution": "Embedded automated axe-core gates, conducted manual keyboard-only traversal, tested NVDA screen-reader flows, and audited color contrast.",
+      "outcome": "Zero Level A/AA non-conformances at audit and accessible access for citizens with assistive technologies.",
+      "tags": [
+        "WCAG 2.1 AA",
+        "Screen Readers",
+        "Keyboard Nav",
+        "Axe-core",
+        "Reflow"
+      ],
+      "labRoute": "/lab/accessibility/"
+    },
+    {
+      "id": "open-banking-cdr",
+      "code": "PROJ-05",
+      "title": "Open Banking & CDR API Assurance",
+      "subtitle": "Consumer Data Right Standards & Financial Grade API Security",
+      "client": "Banking & FinTech",
+      "role": "Test Lead",
+      "teamSize": "3 API QA specialists",
+      "builds": "Quarterly spec releases",
+      "challenge": "Validate OAuth2 mTLS authorization flows, CDR schema compliance, and payload encryption across high-volume banking APIs.",
+      "contribution": "Engineered automated API test suites simulating third-party financial apps; audited consent token lifecycles and latency under load.",
+      "outcome": "Full regulatory compliance, robust consent revocations, and secure integration with fintech partner ecosystems.",
+      "tags": [
+        "Open Banking",
+        "FAPI Security",
+        "OAuth2 mTLS",
+        "API Automation",
+        "JSON Schema"
+      ],
+      "labRoute": "/lab/release/"
+    }
+  ]
+}

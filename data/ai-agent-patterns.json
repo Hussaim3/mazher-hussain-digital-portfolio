@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "1.0",
+  "source": "synthetic",
+  "confidentiality": "public-demo",
+  "project": "QA Agent Architectures & Governance",
+  "agents": [
+    {
+      "id": "agent-defect-triage",
+      "name": "Defect Triage & Classification Agent",
+      "purpose": "Analyze incoming automated failure logs, stack traces, and test results to propose initial severity, affected subsystem, and potential duplicate defects.",
+      "boundaries": "Proposes triage draft only. Strictly prohibited from closing defects, changing severity without human sign-off, or assigning bug to live vendor queue.",
+      "inputs": [
+        "Stack trace",
+        "Network HAR log",
+        "Test Case ID",
+        "Environment telemetry",
+        "Build version"
+      ],
+      "tools": [
+        "Jira/ADO duplicate search",
+        "Git blame commit matcher",
+        "Log parser"
+      ],
+      "outputSchema": {
+        "proposedSeverity": "High",
+        "affectedComponent": "Windcave Webhook Dispatcher",
+        "duplicateCandidate": "DEF-3982 (Similarity: 89%)",
+        "rootCauseHypothesis": "NullPointerException on unhandled 504 gateway response header",
+        "humanActionRequired": "Review duplicate candidate and confirm priority before developer assignment"
+      },
+      "escalationTrigger": "Any defect with potential customer data exposure or payment gateway discrepancy escalates immediately to Test Manager."
+    },
+    {
+      "id": "agent-test-designer",
+      "name": "Requirements Decomposer & Test Design Agent",
+      "purpose": "Extract explicit business rules and acceptance criteria from Jira user stories to draft boundary, equivalence partition, and negative test scenarios.",
+      "boundaries": "Generates draft test specs. Must flag any unstated assumptions as 'Clarification Required'. Cannot approve test coverage.",
+      "inputs": [
+        "User story markdown",
+        "Acceptance Criteria",
+        "OpenAPI JSON spec",
+        "Figma design link"
+      ],
+      "tools": [
+        "OpenAPI endpoint inspector",
+        "Equivalence partition calculator",
+        "Gherkin syntax formatter"
+      ],
+      "outputSchema": {
+        "totalDraftTests": 8,
+        "positiveCases": 3,
+        "negativeCases": 3,
+        "boundaryCases": 2,
+        "ambiguitiesFlagged": [
+          "AC does not define behavior when passport expiry is exactly today"
+        ],
+        "humanActionRequired": "Confirm flagged boundary with Business Analyst before adding to test suite"
+      },
+      "escalationTrigger": "Contradictions between OpenAPI contract and BRD acceptance criteria."
+    },
+    {
+      "id": "agent-traceability",
+      "name": "Traceability & Coverage Audit Agent",
+      "purpose": "Scan repository test files and test management runs to audit end-to-end traceability from BRD requirements to automated test results.",
+      "boundaries": "Read-only auditor. Highlights unmapped requirements and orphan test scripts.",
+      "inputs": [
+        "Requirements Traceability Matrix (RTM)",
+        "Playwright test specs",
+        "Junit test execution XML"
+      ],
+      "tools": [
+        "AST code parser",
+        "Tag matcher",
+        "Coverage gap calculator"
+      ],
+      "outputSchema": {
+        "requirementsAudited": 42,
+        "verifiedCovered": 39,
+        "coverageGapCount": 3,
+        "orphanTests": [
+          "test-old-flow-deprecated.spec.ts"
+        ],
+        "humanActionRequired": "Approve updated RTM and schedule missing tests for sprint backlog"
+      },
+      "escalationTrigger": "Critical regulatory requirement found with 0 passing test evidence."
+    }
+  ]
+}

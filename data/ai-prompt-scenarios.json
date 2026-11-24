@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "1.0",
+  "source": "synthetic",
+  "confidentiality": "public-demo",
+  "project": "AI Prompt Studio & Structured Prompting",
+  "promptPattern": {
+    "systemRole": "Act as a senior QA Test Lead for a regulated digital payment service.",
+    "sourceOfTruth": "Use ONLY the supplied BRD, user story, acceptance criteria, and interface contracts.",
+    "task": "Generate positive, negative, regression, and edge test scenarios.",
+    "constraints": "Do not invent requirements. Mark ambiguity as 'Clarification Required'. Separate Web and Mobile applicability.",
+    "output": "Map each test to Build, User Story, AC, risk, preconditions, steps, and expected observable result.",
+    "validation": "Identify coverage gaps, ungrounded assumptions, and items requiring human sign-off."
+  },
+  "scenarios": [
+    {
+      "id": "prompt-3ds-language",
+      "title": "3DS Multilingual Guidance Prompt",
+      "inputRequirement": "AC-3DS-04: The 3DS challenge guidance displays in English or Simplified Chinese according to the traveller language selection.",
+      "weakPrompt": {
+        "text": "Write test cases for the 3DS language feature in English and Chinese.",
+        "output": "TC-01: Verify English text shows on English page.\nTC-02: Verify Chinese text shows on Chinese page.",
+        "critique": "Superficial coverage. Lacks negative paths, session persistence, language switching during active challenge, translation boundary validation, and traceability."
+      },
+      "structuredPrompt": {
+        "text": "SYSTEM: Senior QA Lead.\nSOURCE: AC-3DS-04.\nTASK: Decompose multilingual verification into positive, negative, and edge tests.\nCONSTRAINTS: Explicitly test language switching mid-session, fallback when locale unsupported, persistence across redirect, and character truncation on mobile.\nOUTPUT: Markdown table with Test ID, AC Tracing, Preconditions, Action, Observable Result, Risk Rating.",
+        "output": [
+          {
+            "id": "TC-3DS-04A",
+            "type": "Positive",
+            "action": "Select Simplified Chinese on Portal; initiate payment",
+            "expected": "Issuer ACS iframe loads with approved simplified Chinese glyphs; font renders cleanly.",
+            "risk": "Low"
+          },
+          {
+            "id": "TC-3DS-04B",
+            "type": "Negative/Edge",
+            "action": "Switch browser locale to unsupported language (e.g. es-ES)",
+            "expected": "System gracefully defaults to English with zero unrendered placeholder tags.",
+            "risk": "Medium"
+          },
+          {
+            "id": "TC-3DS-04C",
+            "type": "Session State",
+            "action": "Change language on payment redirect return page",
+            "expected": "Language selection persists across payment completion receipt without session loss.",
+            "risk": "High"
+          },
+          {
+            "id": "TC-3DS-04D",
+            "type": "Reflow/UX",
+            "action": "View Chinese OTP guidance on 320px mobile viewport",
+            "expected": "No character clipping, line-height >= 1.5, glyphs meet WCAG 1.4.12 spacing.",
+            "risk": "Medium"
+          }
+        ],
+        "qaImpact": "Coverage expanded from 2 superficial checks to 4 defensible risk-aligned test specifications."
+      }
+    },
+    {
+      "id": "prompt-payment-timeout",
+      "title": "Payment Gateway Timeout & Recovery Prompt",
+      "inputRequirement": "AC-PAY-09: If payment gateway fails to respond within 15 seconds, the transaction status shall be marked as PENDING_RECONCILIATION and prevent immediate re-submission.",
+      "weakPrompt": {
+        "text": "Test what happens when payment times out.",
+        "output": "TC-01: Wait 15 seconds, check that error message appears.",
+        "critique": "Dangerous omission: Misses financial ledger state, duplicate charge prevention, asynchronous polling, and customer button disabling."
+      },
+      "structuredPrompt": {
+        "text": "SYSTEM: Senior QA Test Lead.\nSOURCE: AC-PAY-09.\nTASK: Generate rigorous state transition tests for payment gateway timeout.\nCONSTRAINTS: Cover UI button debouncing, database transaction state, asynchronous inquiry job, and user retry prevention.\nOUTPUT: Action, Expected System State, Ledger State, Risk Rating.",
+        "output": [
+          {
+            "id": "TC-PAY-09A",
+            "type": "UI State",
+            "action": "Trigger 15s gateway delay; click 'Submit' repeatedly",
+            "expected": "Submit button disabled immediately on first click; duplicate POST requests suppressed.",
+            "risk": "High"
+          },
+          {
+            "id": "TC-PAY-09B",
+            "type": "Database Audit",
+            "action": "Inspect batch table at T=15.01s",
+            "expected": "Batch status set to PENDING_RECONCILIATION; locking token generated to prevent retry.",
+            "risk": "Critical"
+          },
+          {
+            "id": "TC-PAY-09C",
+            "type": "Reconciliation",
+            "action": "Reconciliation cron polls gateway 10 mins later and finds payment succeeded",
+            "expected": "Batch automatically marked PAID; confirmation sent to traveller without manual ticket.",
+            "risk": "High"
+          }
+        ],
+        "qaImpact": "Prevents catastrophic double-billing defects in production."
+      }
+    }
+  ]
+}

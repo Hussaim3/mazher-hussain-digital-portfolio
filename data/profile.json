@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "1.0",
+  "source": "synthetic",
+  "confidentiality": "public-demo",
+  "name": "Mazher Hussain",
+  "primaryTitle": "Test Manager | QA Delivery Lead | Test Lead",
+  "specialisms": [
+    "AI-enabled Quality Engineering",
+    "Data Migration",
+    "Payments and Integration",
+    "Release Assurance"
+  ],
+  "eyebrow": "Human-led. AI-enabled. Evidence-driven.",
+  "valueProposition": "I turn complex requirements, integrations, data and delivery risk into traceable quality evidence and defensible release decisions.",
+  "profileStatement": "Senior QA leader combining human judgement with AI-assisted analysis, artefact development, code review and evidence-led assurance.",
+  "clearances": [
+    {
+      "id": "nz-citizenship",
+      "label": "New Zealand Citizen",
+      "level": "Full NZ work rights",
+      "authority": "New Zealand Citizenship",
+      "image": "New-Zealand-citizenship.png"
+    },
+    {
+      "id": "nz-police-vetting",
+      "label": "Previously NZ Police vetted",
+      "level": "Point-in-time agency vetting",
+      "authority": "New Zealand Police Vetting Service",
+      "image": "NZ-Police-vetting.png"
+    },
+    {
+      "id": "au-work-rights",
+      "label": "Australian Permanent Resident Visa",
+      "level": "Permanent Residency",
+      "authority": "Australia Permanent Resident Visa",
+      "image": "Australian-work-rights.png"
+    }
+  ],
+  "metrics": [
+    {
+      "label": "Years in IT & QA",
+      "value": "14+ Years",
+      "sub": "Enterprise Delivery"
+    },
+    {
+      "label": "QA Team Leadership",
+      "value": "5-Person Team",
+      "sub": "Cross-Functional"
+    },
+    {
+      "label": "Delivery Builds Assured",
+      "value": "3 Delivery Builds",
+      "sub": "Zero Disruption"
+    },
+    {
+      "label": "Sector Scope",
+      "value": "Government & Banking",
+      "sub": "Regulated Cloud"
+    }
+  ]
+}

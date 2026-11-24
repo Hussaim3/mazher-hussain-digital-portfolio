@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "1.0",
+  "source": "synthetic",
+  "confidentiality": "public-demo",
+  "project": "Synthetic Data & ML Validation Lab",
+  "recordsSample": [
+    {
+      "id": "ROW-1001",
+      "legacyRecord": {
+        "name": "Smith, J.",
+        "amount": 180.0,
+        "currency": "NZD",
+        "status": "COMPLETED"
+      },
+      "mlPredictedCategory": "STANDARD_TOURIST_LEVY",
+      "ruleExpectedCategory": "STANDARD_TOURIST_LEVY",
+      "confidenceScore": 0.99,
+      "discrepancy": false,
+      "qaAudit": "PASS: Exact match between ML classification and statutory rule."
+    },
+    {
+      "id": "ROW-1002",
+      "legacyRecord": {
+        "name": "Al-Mansoor, K.",
+        "amount": 0.0,
+        "currency": "NZD",
+        "status": "DIPLOMATIC_EXEMPT"
+      },
+      "mlPredictedCategory": "STANDARD_TOURIST_LEVY",
+      "ruleExpectedCategory": "DIPLOMATIC_EXEMPTION",
+      "confidenceScore": 0.82,
+      "discrepancy": true,
+      "qaAudit": "CRITICAL FALSE POSITIVE: ML model attempted to levy fee on accredited diplomatic visa holder. QA human rule caught and overturned classification."
+    },
+    {
+      "id": "ROW-1003",
+      "legacyRecord": {
+        "name": "Pacific Fisheries Ltd",
+        "amount": 450.0,
+        "currency": "NZD",
+        "status": "COMMERCIAL"
+      },
+      "mlPredictedCategory": "COMMERCIAL_ENTERPRISE",
+      "ruleExpectedCategory": "COMMERCIAL_ENTERPRISE",
+      "confidenceScore": 0.95,
+      "discrepancy": false,
+      "qaAudit": "PASS: Verified entity registry tax identifier."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0",
+  "source": "synthetic",
+  "confidentiality": "public-demo",
+  "project": "AI-Assisted Code Review Lab",
+  "snippets": [
+    {
+      "id": "code-playwright-payment",
+      "title": "Automated E2E Payment Test Snippet",
+      "aiGeneratedCode": "// AI Generated Playwright Test\ntest('User completes payment', async ({ page }) => {\n  await page.goto('https://checkout.example.gov.nz');\n  await page.click('#pay-btn');\n  await page.fill('#card-number', '411111111111');\n  await page.click('#submit-btn');\n  await page.waitForTimeout(5000);\n  expect(await page.textContent('.status')).toBe('Success');\n});",
+      "mazherReview": {
+        "critique": "Unreliable test. Hardcoded 5-second sleep causes flaky runs; raw card numbers violate synthetic data guidelines; missing error assertions; no accessibility locator strategy; no retry logic for transient network hops.",
+        "revisedCode": "// Mazher's Production-Grade Automated Test\ntest('Traveller completes payment with verified webhook confirmation', async ({ page }) => {\n  // 1. Semantic, accessible locators\n  await page.goto('/checkout');\n  const submitBtn = page.getByRole('button', { name: /Complete Payment/i });\n  \n  // 2. Intercept asynchronous gateway callback\n  const callbackPromise = page.waitForResponse(resp => \n    resp.url().includes('/api/payment/callback') && resp.status() === 200\n  );\n  \n  // 3. User interaction\n  await submitBtn.click();\n  \n  // 4. Assert non-flaky deterministic network response\n  const callbackResponse = await callbackPromise;\n  const responseJson = await callbackResponse.json();\n  expect(responseJson.reconciled).toBe(true);\n  \n  // 5. Accessible confirmation announcement\n  const statusAnnouncer = page.getByRole('status');\n  await expect(statusAnnouncer).toContainText(/Payment Approved/i);\n});",
+        "improvements": [
+          "Replaced brittle CSS selectors with accessible roles (getByRole)",
+          "Eliminated arbitrary sleep (waitForTimeout) in favor of network event awaiting",
+          "Added explicit verification of backend reconciliation response",
+          "Validated aria-live status container for screen-reader accessibility"
+        ]
+      }
+    }
+  ]
+}

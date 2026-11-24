@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0",
+  "source": "synthetic",
+  "confidentiality": "public-demo",
+  "project": "AI Artefact Review & Human Assurance",
+  "case": {
+    "id": "brd-test-review-01",
+    "title": "Review of AI-Generated Test Specification: NZeTA 3DS 2.0 Guidance",
+    "sourceBRD": "BRD-SEC-2026-v2.3, Section 4.8: Multi-Currency Payment and 3DS Localization.",
+    "aiDraft": {
+      "testsGenerated": 6,
+      "unsupportedAssumptions": 2,
+      "missingNegativeTests": 3,
+      "brdCoverageBefore": 0.71,
+      "status": "AI Draft"
+    },
+    "humanReviewFindings": [
+      {
+        "id": "FINDING-01",
+        "severity": "High",
+        "type": "Unsupported Assumption",
+        "description": "AI hallucinated that credit cards with billing address in France require French translations. The BRD explicitly specifies English and Simplified Chinese only.",
+        "actionTaken": "Removed hallucinated test cases; added explicit Negative Test for unsupported locale fallback."
+      },
+      {
+        "id": "FINDING-02",
+        "severity": "Critical",
+        "type": "Missing Coverage",
+        "description": "AI omitted test for traveller changing browser language mid-session while OTP iframe is rendered.",
+        "actionTaken": "Created TC-3DS-019 to verify iframe session token persistence during mid-flight locale switch."
+      },
+      {
+        "id": "FINDING-03",
+        "severity": "Medium",
+        "type": "Vague Observable Result",
+        "description": "AI used vague phrasing: 'Verify payment works properly'.",
+        "actionTaken": "Rewrote expected result to assert specific HTTP 200 payload, CAVV cryptogram, and Windcave Auth Code."
+      }
+    ],
+    "humanReview": {
+      "testsAdded": 4,
+      "testsRemoved": 2,
+      "testsModified": 4,
+      "brdCoverageAfter": 0.96,
+      "decision": "modify-and-approve",
+      "reviewedBy": "Mazher Hussain (Test Lead / QA Delivery Lead)",
+      "approvalDate": "2026-11-06",
+      "status": "Approved for Use",
+      "rationale": "Artefact sanitized of hallucinated requirements, enriched with critical negative edge cases, and mapped 100% to verifiable acceptance criteria."
+    }
+  }
+}

@@ -1,0 +1,273 @@
+/* ==========================================================================
+   LABS.CSS - Interactive Lab Interfaces & Widgets
+   Author: Mazher Hussain Digital Portfolio
+   ========================================================================== */
+
+/* Lab Container Card */
+.lab-sandbox-card {
+  border-radius: var(--radius-lg);
+  background: radial-gradient(circle at 50% 0%, rgba(20, 35, 60, 0.4), rgba(8, 17, 32, 0.95));
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  padding: 1.5rem;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .lab-sandbox-card {
+    padding: 2.25rem;
+  }
+}
+
+/* PayNow Stage Flow & Connectors */
+.paynow-stage-connector {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 12px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+@media (max-width: 1023px) {
+  .paynow-stage-connector {
+    display: none;
+  }
+}
+
+/* Migration Side-by-Side Grid */
+.migration-diff-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+@media (min-width: 768px) {
+  .migration-diff-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.diff-record-pane {
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius);
+  background: rgba(11, 21, 38, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.diff-record-pane__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.diff-field-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid transparent;
+}
+
+.diff-field-row.is-exact {
+  border-color: rgba(34, 197, 94, 0.25);
+  background: rgba(34, 197, 94, 0.05);
+}
+
+.diff-field-row.is-transformed {
+  border-color: rgba(56, 189, 248, 0.25);
+  background: rgba(56, 189, 248, 0.05);
+}
+
+.diff-field-row.is-mismatch {
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.08);
+}
+
+/* Release Readiness Decision Meter */
+.decision-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  border: 2px solid;
+  margin: 1.5rem 0;
+  transition: all 0.3s ease;
+}
+
+.decision-banner.go {
+  border-color: #22c55e;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.15) 0%, rgba(8, 17, 32, 0.9) 100%);
+  color: #22c55e;
+}
+
+.decision-banner.conditional {
+  border-color: #f59e0b;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, rgba(8, 17, 32, 0.9) 100%);
+  color: #f59e0b;
+}
+
+.decision-banner.no-go {
+  border-color: #ef4444;
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.18) 0%, rgba(8, 17, 32, 0.9) 100%);
+  color: #ef4444;
+}
+
+.decision-banner__badge {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.25rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* 3DS Browser Simulator */
+.browser-simulator-frame {
+  border-radius: var(--radius);
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.browser-simulator-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #1e293b;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.browser-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.browser-address-bar {
+  flex: 1;
+  background: #0f172a;
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* AI Code Diff Viewer */
+.code-diff-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+}
+
+@media (min-width: 1024px) {
+  .code-diff-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.code-diff-pane {
+  border-radius: var(--radius);
+  background: #050b14;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.code-diff-pane__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-weight: 700;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+}
+
+.code-diff-pane pre {
+  margin: 0;
+  padding: 14px;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+/* Accessibility Zoom/Reflow Simulator Box */
+.reflow-test-box {
+  transition: width 0.3s ease;
+  margin: 0 auto;
+  background: #081120;
+  border: 2px dashed rgba(56, 189, 248, 0.4);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+.reflow-test-box.is-320px {
+  width: 320px !important;
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.2);
+}
+
+
+/* Ultra-Responsive Mobile Polish (320px - 768px) */
+html, body {
+  overflow-x: clip !important;
+  max-width: 100vw;
+}
+.lab-sandbox-card {
+  width: 100%;
+  overflow-x: hidden;
+}
+.accessible-table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.scenario-picker-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+@media (max-width: 767px) {
+  .migration-diff-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .lab-sandbox-card {
+    padding: 1rem !important;
+  }
+  .scenario-btn {
+    width: 100%;
+    text-align: left;
+    min-height: 44px;
+  }
+  header nav, header .flex {
+    min-width: 0;
+  }
+}

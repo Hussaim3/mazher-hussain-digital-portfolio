@@ -1,0 +1,219 @@
+{
+  "schemaVersion": "1.0",
+  "source": "synthetic",
+  "confidentiality": "public-demo",
+  "project": "NZeTA PayNow inspired portfolio demonstration",
+  "coreStages": [
+    {
+      "id": "portal",
+      "label": "Batch Portal",
+      "icon": "layout"
+    },
+    {
+      "id": "api",
+      "label": "Batch API",
+      "icon": "cpu"
+    },
+    {
+      "id": "quickPay",
+      "label": "QuickPay",
+      "icon": "credit-card"
+    },
+    {
+      "id": "windcave",
+      "label": "Windcave Gateway",
+      "icon": "shield-check"
+    },
+    {
+      "id": "callback",
+      "label": "Callback Webhook",
+      "icon": "refresh-cw"
+    },
+    {
+      "id": "reconciliation",
+      "label": "Reconciliation",
+      "icon": "database"
+    },
+    {
+      "id": "processing",
+      "label": "Batch Processing",
+      "icon": "check-circle"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "successful-payment",
+      "label": "Successful payment",
+      "tag": "Happy Path E2E",
+      "description": "Complete payment authorization with verified webhook receipt, automated ledger reconciliation, and immediate batch clearance.",
+      "stages": {
+        "portal": "pass",
+        "api": "pass",
+        "quickPay": "pass",
+        "windcave": "pass",
+        "callback": "pass",
+        "reconciliation": "pass",
+        "processing": "pass"
+      },
+      "status": "pass",
+      "severity": "None",
+      "businessImpact": "Traveller application batch fully authorized and released into border security processing stream without delay.",
+      "qaRecommendation": "E2E pass with evidence captured. Proceed with scheduled release; telemetry indicates zero anomaly.",
+      "evidence": {
+        "httpStatus": "200 OK",
+        "batchRef": "NZETA-BATCH-2026-9081",
+        "gatewayAuthCode": "AUTH_OK_991823",
+        "callbackLatencyMs": 142,
+        "reconciliationVariance": "$0.00 NZD",
+        "traceability": "US-PAY-101 -> AC-01 -> TC-PAY-001 -> PASS"
+      },
+      "paymentOutcome": "PAYMENT AUTHORISED",
+      "qaVerdict": "PASS"
+    },
+    {
+      "id": "declined-payment",
+      "label": "Declined payment",
+      "tag": "Negative Flow",
+      "description": "Issuing bank declines card due to insufficient funds; downstream border batch processing is safely stopped without charging.",
+      "stages": {
+        "portal": "pass",
+        "api": "pass",
+        "quickPay": "pass",
+        "windcave": "fail",
+        "callback": "pass",
+        "reconciliation": "blocked",
+        "processing": "blocked"
+      },
+      "status": "pass",
+      "severity": "Low",
+      "businessImpact": "Traveller notified in real-time with unambiguous, non-technical decline guidance and option to re-enter payment credentials.",
+      "qaRecommendation": "Expected negative result; verify customer messaging clarity, session preservation, and absence of phantom pre-auth holds.",
+      "evidence": {
+        "httpStatus": "402 Payment Required",
+        "batchRef": "NZETA-BATCH-2026-9082",
+        "gatewayResponse": "DECLINED_51_INSUFFICIENT_FUNDS",
+        "callbackLatencyMs": 118,
+        "reconciliationVariance": "N/A (No charge)",
+        "traceability": "US-PAY-104 -> AC-03 -> TC-PAY-014 -> PASS (Expected Neg)"
+      },
+      "paymentOutcome": "BANK DECLINED (EXPECTED)",
+      "qaVerdict": "PASS (NEGATIVE CONTROL VERIFIED)"
+    },
+    {
+      "id": "cancelled-payment",
+      "label": "Cancelled payment",
+      "tag": "User Abort",
+      "description": "Traveller voluntarily selects 'Cancel and Return to Application' on the hosted payment interface.",
+      "stages": {
+        "portal": "pass",
+        "api": "pass",
+        "quickPay": "pass",
+        "windcave": "fail",
+        "callback": "pass",
+        "reconciliation": "blocked",
+        "processing": "blocked"
+      },
+      "status": "pass",
+      "severity": "Low",
+      "businessImpact": "No duplicate charge created; batch application saved in editable 'Pending Payment' state for 24 hours.",
+      "qaRecommendation": "Verify state persistence across session resumption and confirm no gateway webhook deadlock occurs.",
+      "evidence": {
+        "httpStatus": "200 OK",
+        "batchRef": "NZETA-BATCH-2026-9083",
+        "gatewayResponse": "TRANSACTION_CANCELLED_BY_USER",
+        "callbackLatencyMs": 95,
+        "reconciliationVariance": "$0.00 (Zero impact)",
+        "traceability": "US-PAY-108 -> AC-02 -> TC-PAY-022 -> PASS"
+      },
+      "paymentOutcome": "USER CANCELLED (EXPECTED)",
+      "qaVerdict": "PASS (SAFE ABORT VERIFIED)"
+    },
+    {
+      "id": "gateway-timeout",
+      "label": "Gateway timeout",
+      "tag": "Network Anomaly",
+      "description": "Windcave upstream endpoint fails to respond within the strict 15-second mutual TLS socket timeout window.",
+      "stages": {
+        "portal": "pass",
+        "api": "pass",
+        "quickPay": "pass",
+        "windcave": "fail",
+        "callback": "fail",
+        "reconciliation": "blocked",
+        "processing": "blocked"
+      },
+      "status": "fail",
+      "severity": "High",
+      "businessImpact": "High financial risk. Uncertain gateway state could cause customer double-billing if blind automatic retries occur.",
+      "qaRecommendation": "Enforce circuit-breaker pattern. Trigger automated status inquiry query before allowing user retry.",
+      "evidence": {
+        "httpStatus": "504 Gateway Timeout",
+        "batchRef": "NZETA-BATCH-2026-9084",
+        "socketTimeoutMs": 15002,
+        "callbackLatencyMs": "None (Dropped)",
+        "reconciliationVariance": "PENDING_INQUIRY",
+        "traceability": "US-PAY-201 -> AC-05 -> TC-PAY-089 -> DEF-4019"
+      },
+      "paymentOutcome": "GATEWAY TIMEOUT",
+      "qaVerdict": "FAIL (RECOVERY DEFECT)"
+    },
+    {
+      "id": "callback-missing",
+      "label": "Missing callback",
+      "tag": "Data Inconsistency",
+      "description": "Payment authorization succeeds at Windcave, but asynchronous HTTPS webhook callback fails due to transient firewall drop.",
+      "stages": {
+        "portal": "pass",
+        "api": "pass",
+        "quickPay": "pass",
+        "windcave": "pass",
+        "callback": "fail",
+        "reconciliation": "blocked",
+        "processing": "pending"
+      },
+      "status": "fail",
+      "severity": "High",
+      "businessImpact": "Customer card is charged, but application remains in 'Awaiting Payment' in portal, blocking visa processing.",
+      "qaRecommendation": "Hold release until callback recovery cron polling job and duplicate-payment reconciliation controls are verified in UAT.",
+      "evidence": {
+        "httpStatus": "200 OK (Gateway) / 500 (Callback)",
+        "batchRef": "NZETA-BATCH-2026-9085",
+        "gatewayAuthCode": "AUTH_OK_991845",
+        "callbackLatencyMs": "TIMEOUT_NO_ACK",
+        "reconciliationVariance": "+$180.00 NZD (Unallocated)",
+        "traceability": "US-PAY-112 -> AC-04 -> TC-PAY-047 -> DEF-4022"
+      },
+      "paymentOutcome": "MISSING CALLBACK",
+      "qaVerdict": "FAIL (RECONCILIATION DEFECT)"
+    },
+    {
+      "id": "system-error-before-redirect",
+      "label": "System error before redirect",
+      "tag": "Payload Defect",
+      "description": "Batch API validation rejects traveller payload due to malformed XML/JSON schema before redirection to gateway.",
+      "stages": {
+        "portal": "pass",
+        "api": "fail",
+        "quickPay": "blocked",
+        "windcave": "blocked",
+        "callback": "blocked",
+        "reconciliation": "blocked",
+        "processing": "blocked"
+      },
+      "status": "fail",
+      "severity": "High",
+      "businessImpact": "Entire batch application rejected before payment page; travellers blocked from completing border declaration.",
+      "qaRecommendation": "E2E blocked; defect mapped to Build 2.1 API schema parser. Deploy hotfix and retest full regression pack.",
+      "evidence": {
+        "httpStatus": "500 Internal Server Error",
+        "batchRef": "NZETA-BATCH-2026-9086",
+        "errorDetail": "SCHEMA_VALIDATION_ERROR: Invalid passport country ISO-3166 code",
+        "callbackLatencyMs": "N/A",
+        "reconciliationVariance": "N/A",
+        "traceability": "US-PAY-090 -> AC-01 -> TC-PAY-003 -> DEF-4031"
+      },
+      "paymentOutcome": "PRE-REDIRECT ERROR",
+      "qaVerdict": "FAIL (PAYLOAD DEFECT)"
+    }
+  ]
+}

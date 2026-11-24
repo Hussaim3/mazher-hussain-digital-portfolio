@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "1.0",
+  "source": "synthetic",
+  "confidentiality": "public-demo",
+  "project": "Accessibility & Inclusive Design Lab",
+  "modes": [
+    {
+      "id": "keyboard-nav",
+      "title": "Keyboard Navigation & Visible Focus",
+      "standard": "WCAG 2.1 / 2.2 Success Criterion 2.4.7 (Focus Visible - Level AA)",
+      "description": "Interactive demonstration contrasting accessible 3px high-contrast focus rings and logical tab ordering against faulty 'outline: none' anti-patterns.",
+      "accessibleDemo": {
+        "cssClass": "focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:outline-none",
+        "tabSequence": [
+          "Input 1 (Passport)",
+          "Input 2 (Country)",
+          "Checkbox (Declaration)",
+          "Button (Submit)"
+        ],
+        "focusTrap": "Contained cleanly within modal dialog"
+      },
+      "faultyDemo": {
+        "cssClass": "outline-none ring-0",
+        "tabSequence": [
+          "Input 1",
+          "Skip to Footer",
+          "Button (Submit)",
+          "Input 2"
+        ],
+        "focusTrap": "Focus escapes behind backdrop into obscured background links"
+      }
+    },
+    {
+      "id": "screen-reader",
+      "title": "Screen Reader Accessible Names & Transcripts",
+      "standard": "WCAG 2.1 Success Criterion 4.1.2 (Name, Role, Value - Level A)",
+      "description": "Text transcript demonstrating what NVDA and JAWS screen readers announce to blind users when interactive controls are properly coded versus unlabelled icons.",
+      "accessibleAnnouncement": "\u201cSubmit Payment, button. Press Enter to activate. Required payment amount: $180.00 NZD.\u201d",
+      "faultyAnnouncement": "\u201cButton. Unlabelled graphic.\u201d (Leaves user completely unable to determine button function)."
+    },
+    {
+      "id": "reflow-400",
+      "title": "Reflow & Responsive 400% Zoom",
+      "standard": "WCAG 2.1 Success Criterion 1.4.10 (Reflow - Level AA)",
+      "description": "Verification that content reflows into a single vertical column without two-dimensional scrolling at 400% zoom (320 CSS pixels wide).",
+      "viewportTest": "320px width x 640px height",
+      "status": "PASS",
+      "details": "Zero horizontal scrollbars. Grid collapses into vertical single-column cards."
+    },
+    {
+      "id": "error-summary",
+      "title": "Accessible Form Errors & Inline Associations",
+      "standard": "WCAG 2.1 Success Criterion 3.3.1 (Error Identification) & 3.3.3 (Error Suggestion)",
+      "description": "Comparison between an accessible error summary box with in-page jump anchors and aria-describedby associations versus generic browser alerts.",
+      "accessibleTreatment": "Focus moves to Error Summary with role='alert'. Each error item is a clickable anchor linking to the invalid input.",
+      "faultyTreatment": "Vague red outline on input with no text explanation and no screen-reader announcement."
+    },
+    {
+      "id": "color-contrast",
+      "title": "Color Contrast Ratios & Graphical Objects",
+      "standard": "WCAG 2.1 Success Criterion 1.4.3 (Contrast Minimum) & 1.4.11 (Non-text Contrast)",
+      "description": "Measured contrast ratios for body text (minimum 4.5:1), large headings (minimum 3:1), and UI components/icons (minimum 3:1).",
+      "measurements": [
+        {
+          "element": "Primary Heading on Dark Navy (#FFFFFF on #0B1F3A)",
+          "ratio": "15.4:1",
+          "verdict": "PASS (AAA)"
+        },
+        {
+          "element": "Body Text on Dark (#E2E8F0 on #0B1F3A)",
+          "ratio": "11.2:1",
+          "verdict": "PASS (AAA)"
+        },
+        {
+          "element": "Teal Accent Text (#2DD4BF on #0B1F3A)",
+          "ratio": "7.8:1",
+          "verdict": "PASS (AA)"
+        },
+        {
+          "element": "Muted Label (#94A3B8 on #0B1F3A)",
+          "ratio": "4.9:1",
+          "verdict": "PASS (AA)"
+        },
+        {
+          "element": "Faulty Grey (Anti-pattern: #64748B on #0B1F3A)",
+          "ratio": "3.1:1",
+          "verdict": "FAIL (< 4.5:1)"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "1.0",
+  "source": "synthetic",
+  "confidentiality": "public-demo",
+  "project": "NZeTA 3DS 2.0 Authentication Lab",
+  "languages": {
+    "en": {
+      "title": "3-D Secure 2.0 Traveller Verification",
+      "prompt": "Your issuing bank requires identity verification for security compliance.",
+      "instructions": "Enter the 6-digit one-time security code sent to your registered mobile phone (+64 ***-**18).",
+      "otpPlaceholder": "6-digit passcode",
+      "submitBtn": "Verify & Complete Payment",
+      "cancelBtn": "Cancel & Return to NZeTA",
+      "successMsg": "Authentication Approved. Redirecting to payment confirmation...",
+      "declineMsg": "Authentication Unsuccessful. Card issuer rejected the verification code.",
+      "timeoutMsg": "Session Timed Out. Authentication window exceeded 5 minutes.",
+      "unavailableMsg": "Directory Server Unavailable. Issuer Access Control Server (ACS) unreachable."
+    },
+    "zh": {
+      "title": "3-D Secure 2.0 \u65c5\u5ba2\u8eab\u4efd\u5b89\u5168\u9a8c\u8bc1",
+      "prompt": "\u6839\u636e\u65b0\u897f\u5170\u79fb\u6c11\u5c40\u4e0e\u53d1\u5361\u94f6\u884c\u5b89\u5168\u5408\u89c4\u8981\u6c42\uff0c\u8bf7\u5b8c\u6210\u672c\u6b21\u8eab\u4efd\u9a8c\u8bc1\u3002",
+      "instructions": "\u8bf7\u8f93\u5165\u53d1\u9001\u81f3\u60a8\u9884\u7559\u624b\u673a\u53f7\uff08+64 ***-**18\uff09\u76846\u4f4d\u52a8\u6001\u9a8c\u8bc1\u7801\u3002",
+      "otpPlaceholder": "6\u4f4d\u9a8c\u8bc1\u7801",
+      "submitBtn": "\u9a8c\u8bc1\u5e76\u5b8c\u6210\u652f\u4ed8",
+      "cancelBtn": "\u53d6\u6d88\u5e76\u8fd4\u56de NZeTA \u7533\u8bf7",
+      "successMsg": "\u8eab\u4efd\u9a8c\u8bc1\u6210\u529f\u3002\u6b63\u5728\u8df3\u8f6c\u81f3\u652f\u4ed8\u786e\u8ba4\u9875\u9762...",
+      "declineMsg": "\u8eab\u4efd\u9a8c\u8bc1\u672a\u901a\u8fc7\u3002\u53d1\u5361\u94f6\u884c\u5df2\u62d2\u7edd\u672c\u6b21\u9a8c\u8bc1\u8bf7\u6c42\u3002",
+      "timeoutMsg": "\u4f1a\u8bdd\u8d85\u65f6\u3002\u9a8c\u8bc1\u7a97\u53e3\u5df2\u8d85\u8fc75\u5206\u949f\u9650\u5236\u3002",
+      "unavailableMsg": "\u9a8c\u8bc1\u76ee\u5f55\u670d\u52a1\u5668\u6682\u65f6\u4e0d\u53ef\u7528\u3002\u53d1\u5361\u884c\u8bbf\u95ee\u63a7\u5236\u670d\u52a1\u5668\uff08ACS\uff09\u65e0\u54cd\u5e94\u3002"
+    }
+  },
+  "scenarios": [
+    {
+      "id": "3ds-success",
+      "label": "Authentication Success (Frictionless / OTP Pass)",
+      "status": "pass",
+      "challengeRequired": true,
+      "authResult": "Y (Authentication Successful)",
+      "eci": "05 (Fully Authenticated)",
+      "qaChecks": [
+        {
+          "name": "Challenge Redirect Handling",
+          "result": "Pass",
+          "note": "Embedded iframe rendered smoothly without outer page displacement."
+        },
+        {
+          "name": "Multilingual String Parity",
+          "result": "Pass",
+          "note": "English and Simplified Chinese guidance matches approved INZ copy."
+        },
+        {
+          "name": "Cryptographic Signature Validation",
+          "result": "Pass",
+          "note": "CAVV / AAV cryptogram verified by Windcave processor."
+        }
+      ]
+    },
+    {
+      "id": "3ds-declined",
+      "label": "Authentication Declined (Failed OTP / Fraud Block)",
+      "status": "fail",
+      "challengeRequired": true,
+      "authResult": "N (Not Authenticated / Denied)",
+      "eci": "07 (Auth Failed)",
+      "qaChecks": [
+        {
+          "name": "Graceful Failure UI",
+          "result": "Pass",
+          "note": "Clear error message displayed with non-technical guidance."
+        },
+        {
+          "name": "No Premature Deduction",
+          "result": "Pass",
+          "note": "Confirmed zero financial hold captured on customer ledger."
+        },
+        {
+          "name": "Alternate Payment Route",
+          "result": "Pass",
+          "note": "User safely returned to checkout with option to use alternate card."
+        }
+      ]
+    },
+    {
+      "id": "3ds-unavailable",
+      "label": "Authentication Unavailable (ACS Server Outage)",
+      "status": "fail",
+      "challengeRequired": false,
+      "authResult": "U (Unable to Complete)",
+      "eci": "06 (Merchant Attempted)",
+      "qaChecks": [
+        {
+          "name": "Fallback Decision Rule",
+          "result": "Pass",
+          "note": "Risk rules evaluated merchant liability shift before attempting stand-in auth."
+        },
+        {
+          "name": "Audit Logging",
+          "result": "Pass",
+          "note": "Full ACS failure payload logged in compliance with PCI-DSS 4.0 requirements."
+        }
+      ]
+    },
+    {
+      "id": "3ds-cancelled",
+      "label": "Traveller Cancelled Challenge Window",
+      "status": "fail",
+      "challengeRequired": true,
+      "authResult": "C (Cancelled by Cardholder)",
+      "eci": "07 (Abandoned)",
+      "qaChecks": [
+        {
+          "name": "Session Recovery",
+          "result": "Pass",
+          "note": "Traveller declaration data retained in browser storage for 24 hours."
+        },
+        {
+          "name": "No Orphan Webhooks",
+          "result": "Pass",
+          "note": "Callback listener gracefully closed without timing out."
+        }
+      ]
+    },
+    {
+      "id": "3ds-return-failure",
+      "label": "Return State Failure (Corrupted Redirect Payload)",
+      "status": "fail",
+      "challengeRequired": true,
+      "authResult": "E (Execution / Payload Error)",
+      "eci": "N/A",
+      "qaChecks": [
+        {
+          "name": "Tamper Resistance",
+          "result": "Pass",
+          "note": "System detected payload hash mismatch and rejected return transition."
+        },
+        {
+          "name": "Defect Tracing",
+          "result": "Defect Raised",
+          "note": "DEF-3044: Handle Safari 16 ITP cross-site cookie drop during ACS redirect."
+        }
+      ]
+    }
+  ]
+}
