@@ -1367,7 +1367,7 @@ FROM saas_schema.patents_core;`,
 
   const printCvSummaryBtn = document.getElementById('printCvSummaryBtn');
   if (printCvSummaryBtn) {
-    printCvSummaryBtn.addEventListener('click', () => window.print());
+    printCvSummaryBtn.addEventListener('click', () => { window.open('Mazher_Hussain_Executive_Master_CV.pdf', '_blank'); });
   }
 
   const directPdfDownloadBtn = document.getElementById('directPdfDownloadBtn');
