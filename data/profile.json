@@ -22,18 +22,25 @@
       "image": "New-Zealand-citizenship.png"
     },
     {
-      "id": "nz-police-vetting",
-      "label": "Previously NZ Police vetted",
-      "level": "Point-in-time agency vetting",
-      "authority": "New Zealand Police Vetting Service",
-      "image": "NZ-Police-vetting.png"
+      "id": "au-work-rights",
+      "label": "Australian Permanent Resident",
+      "level": "Permanent work and residency rights in Australia",
+      "authority": "Australian Permanent Residency",
+      "image": "Australian-work-rights.png"
     },
     {
-      "id": "au-work-rights",
-      "label": "Australian Permanent Resident Visa",
-      "level": "Permanent Residency",
-      "authority": "Australia Permanent Resident Visa",
-      "image": "Australian-work-rights.png"
+      "id": "nz-defence-cv",
+      "label": "NZ Defence Active Confidential *CV Level Clearance",
+      "level": "NZSIS – *CV Level Clearance (held supporting NZDF via One NZ)",
+      "authority": "New Zealand Security Intelligence Service (NZSIS)",
+      "image": "New-Zealand-Defence-Force.png"
+    },
+    {
+      "id": "nz-police-vetting",
+      "label": "NZ Police Vetted",
+      "level": "Vetting cleared (held supporting NZ Police via One NZ)",
+      "authority": "New Zealand Police Vetting Service",
+      "image": "NZ-Police-vetting.png"
     }
   ],
   "metrics": [
@@ -57,5 +64,14 @@
       "value": "Government & Banking",
       "sub": "Regulated Cloud"
     }
+  ],
+  "languages": [
+    "English",
+    "Arabic",
+    "Hindi"
+  ],
+  "education": [
+    "Master of Information Technology — Southern Institute of Technology (SIT), New Zealand (2015)",
+    "Bachelor of Technology (B.Tech) in Computer Science & Engineering — JNTU, Hyderabad (2009)"
   ]
 }

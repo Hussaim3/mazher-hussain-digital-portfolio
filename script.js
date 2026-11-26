@@ -143,7 +143,7 @@
       index: '03',
       featured: true,
       category: 'migration',
-      title: 'IPONZ SaaS Cloud Migration & Open Banking / Dow Jones',
+      title: 'IPONZ SaaS Cloud Migration, Legacy V3.39–Optonum Integration & Open Banking / Dow Jones',
       org: 'MBIE · Migration Test Lead (Vendor: COEXYA France & Payments NZ Transition)',
       tagline: 'Reconciling critical Intellectual Property records and national Open Banking API specifications into modern cloud platforms using SQL reconciliation.',
       proof: 'How I used SQL reconciliation and transformation-rule validation to check that critical records arrived correctly in the target system.',
@@ -157,6 +157,8 @@
       challenge: 'Simultaneously leading migration assurance for transitioning IPONZ from a legacy on-premise system to SaaS Cloud with international vendor COEXYA (France) and migrating New Zealand’s Open Banking Standards Platform from Payments NZ to MBIE GitHub Enterprise Cloud alongside Dow Jones Risk Screening.',
       did: [
         'Defined end-to-end migration test strategies, SQL source-to-target reconciliation queries, and transformation-rule verification across IPONZ and Open Banking schemas.',
+        'Executed hands-on IPONZ Legacy V3.39–Optonum seamless integration testing: Postman APIs (GetDocument, CheckDesignRenewal), Keycloak SSO/SLO authentication, user/customer sync, NFR performance-baseline scripts, and migration operational readiness.',
+        'Represented MBIE as Data Migration Test Lead in formal external vendor audit interviews for the IPONZ transformation, contributing technical scrutiny of migration methodology, reconciliation controls, data quality, and delivery risks.',
         'Executed row count, column mapping, and cryptographic hash verification between legacy tables and cloud schemas, resolving historical data anomalies prior to cutover.',
         'Tested GitHub authoring/publishing workflows, OpenAPI artefacts, RBAC, audit logging, DR/rollback, and Dow Jones Risk Screening (SSO, search, audit trails, UAT).'
       ],
@@ -773,7 +775,7 @@ FROM saas_schema.patents_core;`,
     { num: '04', status: 'JAN 2018 – JAN 2019 · DIGITAL / PAYMENTS', title: 'TEST LEAD / QA ANALYST', org: 'Department of Conservation (DOC) & Wilkinson & Son’s Chemist · Wellington, NZ', desc: 'Led Great Walks national booking and POS platform testing for DOC alongside retail POS/ERP quality assurance for Wilkinson & Son’s Chemist.' },
     { num: '05', status: 'JAN 2019 – AUG 2019 · DIGITAL', title: 'BANKING + TELECOM TESTING', org: 'The Co-operative Bank · Wellington, NZ', desc: 'Core internet banking migration, automated Cypress and Selenium regression suites, and Acting Scrum Master leadership.' },
     { num: '06', status: '2019 – AUG 2025 · ENTERPRISE MOBILITY', title: 'TECHNICAL TEST LEAD / RELEASE MANAGER', org: 'One NZ (NZDF, MSD, NZ Police Streams)', desc: 'Directed 3 high-security mobile streams: NZDF BlackBerry UEM to Intune (zero data loss), MSD Workspace ONE, and NZ Police iOS.' },
-    { num: '07', status: 'SEP 2025 – PRESENT · CLOUD &amp; DATA', title: 'TEST LEAD / <span class="text-teal-400">DATA MIGRATION TEST LEAD</span>', org: 'Ministry of Business, Innovation & Employment (MBIE)', desc: 'Leading QA across NZeTA PayNow (5-person QA team across QuickPay/Windcave), 3DS 2.0 (Datacom), IPONZ SaaS Cloud Migration (COEXYA France), Open Banking CDR, and EPBR accessibility.' }
+    { num: '07', status: 'SEP 2025 – PRESENT · CLOUD &amp; DATA', title: 'TEST LEAD / <span class="text-teal-400">DATA MIGRATION TEST LEAD</span>', org: 'Ministry of Business, Innovation & Employment (MBIE)', desc: 'Leading QA & BA/technical assurance across NZeTA PayNow (5-person QA team), 3DS 2.0 (Datacom), IPONZ SaaS Cloud Migration (COEXYA France) & Legacy V3.39–Optonum API/Keycloak/NFR integration, external vendor audit interviews, Open Banking CDR, and EPBR accessibility.' }
   ];
 
   document.querySelectorAll('.era-btn, .timeline-btn').forEach(btn => {
@@ -895,7 +897,7 @@ FROM saas_schema.patents_core;`,
       count: '02 / 05',
       org: 'MBIE (IPONZ) & OPEN BANKING',
       title: 'CLOUD, SAAS & OPEN BANKING MIGRATION',
-      desc: 'Data Migration Test Lead for the IPONZ SaaS Cloud Migration (COEXYA France), validating source-to-target SQL reconciliation, transformation rules, Catalyst/OpenAPI/DocMan/MuleSoft integrations, plus Open Banking Standards & Dow Jones CDR.',
+      desc: 'Data Migration Test Lead for IPONZ SaaS Cloud Migration (COEXYA France) and hands-on IPONZ Legacy V3.39–Optonum seamless integration (Postman APIs, Keycloak SSO/SLO, NFR baselines), external vendor audit technical interviews, plus Open Banking Standards & Dow Jones CDR.',
       tags: ['IPONZ SaaS Migration', 'SQL Reconciliation', 'Open Banking CDR', 'MuleSoft & OpenAPI']
     },
     {

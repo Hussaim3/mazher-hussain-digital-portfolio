@@ -27,21 +27,22 @@
     {
       "id": "iponz-saas",
       "code": "PROJ-02",
-      "title": "IPONZ SaaS Migration",
+      "title": "IPONZ SaaS Migration & Legacy V3.39–Optonum Integration",
       "subtitle": "Intellectual Property Office Cloud & Database Modernisation",
       "client": "MBIE / IPONZ",
       "role": "Data Migration Test Lead",
       "teamSize": "Cross-functional data engineering & QA stream",
       "builds": "4 migration iterations",
       "challenge": "Migrate millions of statutory patent, trademark, and design records from legacy Oracle databases to target SaaS platform without data loss or date drift.",
-      "contribution": "Formulated automated SQL source-to-target reconciliation algorithms, audited transformation rules for leap years and multi-value fields, and verified public registry search parity.",
+      "contribution": "Formulated SQL source-to-target reconciliation and transformation-rule verification; performed hands-on IPONZ Legacy V3.39–Optonum seamless integration testing (Postman APIs including GetDocument & CheckDesignRenewal, Keycloak SSO/SLO authentication, user/customer sync, NFR performance baselines, ADO scripts); and represented MBIE in formal external vendor audit technical interviews.",
       "outcome": "100% target record verification, zero statutory date discrepancies, and executive sign-off for cutover weekend.",
       "tags": [
         "Data Migration",
         "SQL Reconciliation",
-        "Schema Mapping",
-        "ETL Verification",
-        "Data Quality"
+        "Optonum Integration",
+        "Postman API & NFR",
+        "Keycloak SSO/SLO",
+        "External Vendor Audit"
       ],
       "labRoute": "/lab/migration/"
     },
